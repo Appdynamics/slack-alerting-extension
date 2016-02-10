@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%t] %d{DATE} %5p %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="RollingFileAppender" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="logs/slackAlert.log"/>
+        <param name="MaxFileSize" value="5000KB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%t] %d{DATE} %5p %c - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.appdynamics.extensions.slack" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="RollingFileAppender"/>
+        <appender-ref ref="ConsoleAppender"/>
+    </logger>
+
+    <logger name="org.apache" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="RollingFileAppender"/>
+        <appender-ref ref="ConsoleAppender"/>
+    </logger>
+
+</log4j:configuration>
