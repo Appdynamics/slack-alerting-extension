@@ -9,17 +9,15 @@ This extension utilizes Slack Incoming Webhooks to post messages into slack.
 
 ### Prerequisites
 
-- Setup incoming Webhook integration for your slack team. Webhook URL is required for this extension to post events to Slack.
+- Webhook URL is required for this extension to post events to Slack. Setup incoming Webhook integration for your slack team if not configured. For details, please refer [here](https://api.slack.com/incoming-webhooks)
 
 ## Installation Steps
 
-1. Run `mvn clean install`.
+1. To build from source, clone this repository and run `mvn clean install`. This will produce a slack-alert.zip in the target directory. Alternatively, download the latest release archive from [GitHub](https://github.com/Appdynamics/slack-alerting-extension/releases)
 
-2. Find the zip file at `target/slack-alert.zip` or Download the Slack Alerting Extension zip from [AppDynamics Exchange]()
+2. Unzip the slack-alert.zip file into `<CONTROLLER_HOME_DIR>/custom/actions/`.
 
-3. Unzip the slack-alert.zip file into `<CONTROLLER_HOME_DIR>/custom/actions/`.
-
-4. Check if you have custom.xml file in `<CONTROLLER_HOME_DIR>/custom/actions/` directory. If yes, add the following xml to the <custom-actions> element.
+3. Check if you have custom.xml file in `<CONTROLLER_HOME_DIR>/custom/actions/` directory. If yes, add the following xml to the <custom-actions> element.
        
       ```
           <action>
@@ -47,7 +45,7 @@ This extension utilizes Slack Incoming Webhooks to post messages into slack.
             
    Uncomment the appropriate executable tag based on windows or linux/unix machine.
 
-5. Update the config.yaml file in `<CONTROLLER_HOME_DIR>/custom/actions/slack-alert/conf/` directory with the required parameters. Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a yaml validator http://yamllint.com/
+4. Update the config.yml file in `<CONTROLLER_HOME_DIR>/custom/actions/slack-alert/conf/` directory with the required parameters. Please make sure to not use tab (\t) while editing yaml files. You may want to validate the yaml file using a yaml validator http://yamllint.com/
   
       ```
       # Slack Webhook URL to post events from AppD to Slack
@@ -62,23 +60,23 @@ This extension utilizes Slack Incoming Webhooks to post messages into slack.
       socketTimeout: 10000 
       ```
   
-6. Please refer to the following docs to create Custom Actions
+5. Please refer to the following docs to create Custom Actions
 
      * [Creating custom action](http://docs.appdynamics.com/display/PRO14S/Custom+Actions)
      * [Build an Alerting Extension](http://docs.appdynamics.com/display/PRO14S/Build+an+Alerting+Extension)
          
    Now you are ready to use this extension as a custom action. In the AppDynamics UI, go to Alert & Respond -> Actions. Click Create Action. Select Custom Action and click OK. In the drop-down menu you can find the action called 'slack-alert'.
 
-7. Look for the newest created message in Slack.
+6. Look for the newest created message in Slack.
 
 
 ## Contributing
 
-Find out more in the [AppDynamics Exchange]()
+Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/community/exchange/extension/slack-alerting-extension/)
 
 ## Support
 
 For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
 
 **Version:** 1.0
-**Controller Compatibility:** 4.1+
+**Controller Compatibility:** 3.7+

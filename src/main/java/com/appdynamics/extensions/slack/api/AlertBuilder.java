@@ -42,6 +42,7 @@ public class AlertBuilder {
             sb.append("Affected Entity Type: ").append(healthRuleViolationEvent.getAffectedEntityType()).append(", ");
             sb.append("Affected Entity Name: ").append(healthRuleViolationEvent.getAffectedEntityName());
             sb.append("\n");
+            sb.append("\n");
             sb.append("Summary message: ").append(healthRuleViolationEvent.getSummaryMessage());
             sb.append("\n");
             sb.append("URL: ").append(event.getDeepLinkUrl()).append(healthRuleViolationEvent.getIncidentID());
