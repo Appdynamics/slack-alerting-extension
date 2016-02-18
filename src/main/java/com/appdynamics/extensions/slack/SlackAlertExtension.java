@@ -84,7 +84,7 @@ public class SlackAlertExtension {
      * @param args
      * @return false incase of an error else true;
      */
-    private boolean processAnEvent(String[] args) {
+    public boolean processAnEvent(String[] args) {
         Event event = new EventBuilder().build(args);
         if (event != null) {
             AlertBuilder alertBuilder = new AlertBuilder();

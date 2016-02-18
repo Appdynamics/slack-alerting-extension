@@ -20,16 +20,16 @@ package com.appdynamics.extensions.slack.api;
  */
 public class Alert {
 
-    private String text;
     private String channel;
     private String username;
+    private Attachment[] attachments;
 
-    public String getText() {
-        return text;
+    public Attachment[] getAttachments() {
+        return attachments;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setAttachments(Attachment[] attachments) {
+        this.attachments = attachments;
     }
 
     public String getChannel() {

@@ -28,32 +28,63 @@ import com.google.common.base.Strings;
  */
 public class AlertBuilder {
 
-    private String createAlertMessage(Event event) {
+    private Attachment createAlertMessage(Event event) {
+        Attachment attachment = new Attachment();
         StringBuilder sb = new StringBuilder();
         if ((event instanceof HealthRuleViolationEvent)) {
             HealthRuleViolationEvent healthRuleViolationEvent = (HealthRuleViolationEvent) event;
-            sb.append("Health rule violation = [").append("P").append(event.getPriority()).append(", ");
-            sb.append("Severity:").append(event.getSeverity()).append(", ");
-            sb.append("Event Time:").append(healthRuleViolationEvent.getPvnAlertTime()).append(", ");
+            attachment.setTitle("Health rule violation: " + buildHealthRuleTitle(healthRuleViolationEvent));
+            attachment.setColor(setMessageColor(healthRuleViolationEvent.getSeverity()));
+
+            sb.append("Application Name: ").append(event.getAppName()).append(", ");
+            sb.append("Health rule name: ").append(healthRuleViolationEvent.getHealthRuleName());
             sb.append("\n");
-            sb.append("App Name:").append(event.getAppName()).append(", ");
-            sb.append("Health rule name:").append(healthRuleViolationEvent.getHealthRuleName()).append(", ");
+            sb.append("Affected Entity Type: ").append(healthRuleViolationEvent.getAffectedEntityType()).append(", ");
+            sb.append("Affected Entity Name: ").append(healthRuleViolationEvent.getAffectedEntityName());
             sb.append("\n");
-            sb.append("Affected Entity Type:").append(healthRuleViolationEvent.getAffectedEntityType()).append(", ");
-            sb.append("Affected Entity Name:").append(healthRuleViolationEvent.getAffectedEntityName()).append(", ");
+            sb.append("Summary message: ").append(healthRuleViolationEvent.getSummaryMessage());
             sb.append("\n");
-            sb.append("Summary message:").append(healthRuleViolationEvent.getSummaryMessage()).append(", ");
-            sb.append("\n");
-            sb.append("URL:").append(event.getDeepLinkUrl()).append(healthRuleViolationEvent.getIncidentID()).append("]");
+            sb.append("URL: ").append(event.getDeepLinkUrl()).append(healthRuleViolationEvent.getIncidentID());
+
         } else {
             OtherEvent oe = (OtherEvent) event;
-            sb.append("Event = [").append("P:").append(oe.getPriority()).append(", ");
-            sb.append("Severity:").append(oe.getSeverity()).append(", ");
-            sb.append("App Name:").append(oe.getAppName()).append(", ");
-            sb.append("Event Name:").append(oe.getEventNotificationName()).append(", ");
-            sb.append("URL:").append(oe.getDeepLinkUrl()).append(oe.getEventNotificationId()).append("]");
+            attachment.setTitle("Event: " + buildOtherEventTitle(oe));
+            attachment.setColor(setMessageColor(oe.getSeverity()));
+
+            sb.append("Application Name: ").append(oe.getAppName()).append(", ");
+            sb.append("Event Name: ").append(oe.getEventNotificationName());
+            sb.append("\n");
+            sb.append("URL: ").append(oe.getDeepLinkUrl()).append(oe.getEventNotificationId()).append("]");
         }
+        attachment.setText(sb.toString());
+        return attachment;
+    }
+
+    private String buildHealthRuleTitle(HealthRuleViolationEvent event) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("P").append(event.getPriority()).append(", ");
+        sb.append("Severity:").append(event.getSeverity()).append(", ");
+        sb.append("Event Time:").append(event.getPvnAlertTime());
         return sb.toString();
+    }
+
+    private String buildOtherEventTitle(OtherEvent event) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("P").append(event.getPriority()).append(", ");
+        sb.append("Severity:").append(event.getSeverity()).append(", ");
+        sb.append("Event Time:").append(event.getEventNotificationTime());
+        return sb.toString();
+    }
+
+    private String setMessageColor(String severity) {
+        if ("INFO".equals(severity)) {
+            return "good";
+        } else if ("ERROR".equals(severity)) {
+            return "danger";
+        } else if ("WARN".equals(severity)) {
+            return "warning";
+        }
+        return "";
     }
 
     public String convertIntoJsonString(Alert alert) throws JsonProcessingException {
@@ -70,8 +101,9 @@ public class AlertBuilder {
             alert.setUsername(config.getUsername());
         }
 
-        String alertMessage = createAlertMessage(event);
-        alert.setText(alertMessage);
+        Attachment alertMessage = createAlertMessage(event);
+        Attachment[] attachments = {alertMessage};
+        alert.setAttachments(attachments);
         return alert;
     }
 }
