@@ -55,7 +55,7 @@ public class AlertBuilder {
             sb.append("Application Name: ").append(oe.getAppName()).append(", ");
             sb.append("Event Name: ").append(oe.getEventNotificationName());
             sb.append("\n");
-            sb.append("URL: ").append(oe.getDeepLinkUrl()).append(oe.getEventNotificationId()).append("]");
+            sb.append("URL: ").append(oe.getDeepLinkUrl()).append(oe.getEventNotificationId());
         }
         attachment.setText(sb.toString());
         return attachment;
