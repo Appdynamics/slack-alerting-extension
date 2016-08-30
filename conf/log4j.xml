@@ -16,7 +16,13 @@
         </layout>
     </appender>
 
-    <logger name="com.appdynamics.extensions.slack" additivity="false">
+    <logger name="com.appdynamics" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="RollingFileAppender"/>
+        <appender-ref ref="ConsoleAppender"/>
+    </logger>
+
+    <logger name="httpclient" additivity="false">
         <level value="info"/>
         <appender-ref ref="RollingFileAppender"/>
         <appender-ref ref="ConsoleAppender"/>
