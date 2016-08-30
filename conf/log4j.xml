@@ -22,16 +22,15 @@
         <appender-ref ref="ConsoleAppender"/>
     </logger>
 
-    <logger name="httpclient" additivity="false">
-        <level value="info"/>
-        <appender-ref ref="RollingFileAppender"/>
-        <appender-ref ref="ConsoleAppender"/>
-    </logger>
-
     <logger name="org.apache" additivity="false">
         <level value="info"/>
         <appender-ref ref="RollingFileAppender"/>
         <appender-ref ref="ConsoleAppender"/>
     </logger>
+
+    <root>
+        <priority value="error"/>
+        <appender-ref ref="RollingFileAppender"/>
+    </root>
 
 </log4j:configuration>
