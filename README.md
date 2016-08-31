@@ -57,17 +57,27 @@ This extension utilizes Slack Incoming Webhooks to post messages into slack.
       username: ""
       #http timeouts
       connectTimeout: 10000
-      socketTimeout: 10000 
+      socketTimeout: 10000
+      #proxy details, provide either proxyUri OR proxyHost and proxyPort.
+      proxy:
+       #host:
+       #port:
+       uri:
+       username:
+       password:
       ```
   
 5. Please refer to the following docs to create Custom Actions
-
-     * [Creating custom action](http://docs.appdynamics.com/display/PRO14S/Custom+Actions)
-     * [Build an Alerting Extension](http://docs.appdynamics.com/display/PRO14S/Build+an+Alerting+Extension)
-         
+     * [Creating custom action](https://docs.appdynamics.com/display/PRO42/Custom+Actions)         
    Now you are ready to use this extension as a custom action. In the AppDynamics UI, go to Alert & Respond -> Actions. Click Create Action. Select Custom Action and click OK. In the drop-down menu you can find the action called 'slack-alert'.
+   A policy has to be associated with this action for it to be triggered.
+     * [Configure Policy Actions](https://docs.appdynamics.com/display/PRO42/Configure+Policies)
+     * [Build an Custom Action](https://docs.appdynamics.com/display/PRO42/Build+a+Custom+Action)
 
 6. Look for the newest created message in Slack.
+The following is an screen shot of message in Slack:
+
+![](https://raw.githubusercontent.com/Appdynamics/slack-alerting-extension/master/SlackAlert.png)
 
 
 ## Contributing

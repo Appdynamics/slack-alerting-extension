@@ -22,6 +22,7 @@ import com.appdynamics.extensions.http.Response;
 import com.appdynamics.extensions.http.SimpleHttpClient;
 import com.appdynamics.extensions.slack.api.Alert;
 import com.appdynamics.extensions.slack.api.AlertBuilder;
+import com.appdynamics.extensions.slack.common.HttpHandler;
 import com.appdynamics.extensions.yml.YmlReader;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.log4j.Logger;
@@ -89,35 +90,25 @@ public class SlackAlertExtension {
         if (event != null) {
             AlertBuilder alertBuilder = new AlertBuilder();
             Alert payload = alertBuilder.createPayload(config, event);
-            try {
-                String json = alertBuilder.convertIntoJsonString(payload);
-                logger.debug("Starting posting data to Slack :: " + json);
 
-                Response response = postAlert(json);
-                if (response != null && response.getStatus() == HttpURLConnection.HTTP_OK) {
-                    logger.info("Data successfully posted to Slack");
-                    return true;
+            if(payload != null) {
+                try {
+                    HttpHandler httpHandler = new HttpHandler(config);
+                    String json = alertBuilder.convertIntoJsonString(payload);
+                    logger.debug("Starting posting data to Slack :: " + json);
+
+                    Response response = httpHandler.postAlert(json);
+                    if (response != null && response.getStatus() == HttpURLConnection.HTTP_OK) {
+                        logger.info("Data successfully posted to Slack");
+                        return true;
+                    }
+                    logger.error("Data post to Slack failed with HTTP status code: " + response.getStatus());
+                } catch (JsonProcessingException e) {
+                    logger.error("Cannot serialized object into Json." + e);
                 }
-                logger.error("Data post to Slack failed with HTTP status code: " + response.getStatus());
-            } catch (JsonProcessingException e) {
-                logger.error("Cannot serialized object into Json." + e);
             }
         }
         return false;
-    }
-
-    private Response postAlert(String data) {
-        logger.debug("Building the httpClient");
-        SimpleHttpClient simpleHttpClient = SimpleHttpClient.builder(new HashMap<String, String>())
-                .connectionTimeout(config.getConnectTimeout())
-                .socketTimeout(config.getSocketTimeout())
-                .build();
-        String targetUrl = config.getWebhookUrl();
-        Response response = simpleHttpClient.target(targetUrl)
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-                .post(data);
-        logger.debug("HTTP Response status from slack " + response.getStatus());
-        return response;
     }
 }
 

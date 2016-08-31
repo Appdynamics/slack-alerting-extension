@@ -12,4 +12,11 @@ username: ""
 connectTimeout: 10000
 socketTimeout: 10000
 
+#proxy details, provide either proxyUri OR proxyHost and proxyPort.
+proxy:
+ #host:
+ #port:
+ uri:
+ username:
+ password:
 

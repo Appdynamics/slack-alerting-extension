@@ -27,6 +27,8 @@ public class Configuration {
     private int connectTimeout = 10000;
     private int socketTimeout = 10000;
 
+    private Proxy proxy;
+
     public String getChannel() {
         return channel;
     }
@@ -65,5 +67,13 @@ public class Configuration {
 
     public void setSocketTimeout(int socketTimeout) {
         this.socketTimeout = socketTimeout;
+    }
+
+    public Proxy getProxy() {
+        return proxy;
+    }
+
+    public void setProxy(Proxy proxy) {
+        this.proxy = proxy;
     }
 }
