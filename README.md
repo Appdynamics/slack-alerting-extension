@@ -67,10 +67,11 @@ This extension utilizes Slack Incoming Webhooks to post messages into slack.
        password:
       ```
   
-5. Please refer to the following docs to create Custom Actions
+5. Please refer to the following doc to create Custom Actions
      * [Creating custom action](https://docs.appdynamics.com/display/PRO42/Custom+Actions)         
    Now you are ready to use this extension as a custom action. In the AppDynamics UI, go to Alert & Respond -> Actions. Click Create Action. Select Custom Action and click OK. In the drop-down menu you can find the action called 'slack-alert'.
-   A policy has to be associated with this action for it to be triggered.
+   
+   A policy has to be associated with this action for it to be triggered. Refer the docs below
      * [Configure Policy Actions](https://docs.appdynamics.com/display/PRO42/Configure+Policies)
      * [Build an Custom Action](https://docs.appdynamics.com/display/PRO42/Build+a+Custom+Action)
 
@@ -88,5 +89,6 @@ Find out more in the [AppDynamics Exchange](https://www.appdynamics.com/communit
 
 For any questions or feature request, please contact [AppDynamics Center of Excellence](mailto:help@appdynamics.com).
 
-**Version:** 1.0
-**Controller Compatibility:** 3.7+
+**Version:** 1.0.2
+
+**Controller Compatibility:** 4.0+
