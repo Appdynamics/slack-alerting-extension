@@ -3,7 +3,7 @@
 # https://hooks.slack.com/services/****/***/*****)
 webhookUrl: ""
 
-# (optional) Overrides channel and username configured when creating Webhook.
+# (optional) Overrides channel and username configured when creating Webhook (channel: "#random")
 # Specify if events to be posted to a different channel and with a different identity.
 channel: ""
 username: ""
